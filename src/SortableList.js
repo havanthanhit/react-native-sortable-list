@@ -5,7 +5,6 @@ import {shallowEqual, swapArrayElements} from './utils';
 import Row from './Row';
 
 const AUTOSCROLL_INTERVAL = 100;
-const ZINDEX = Platform.OS === 'ios' ? 'zIndex' : 'elevation';
 
 function uniqueRowKey(key) {
   return `${key}${uniqueRowKey.id}`
@@ -277,7 +276,10 @@ export default class SortableList extends Component {
     let nextY = 0;
 
     return order.map((key, index) => {
-      const style = {[ZINDEX]: 0};
+      const style = {
+        'zIndex': 0,
+        'elevation': 0
+      }
       const location = {x: 0, y: 0};
 
       if (rowsLayouts) {
@@ -294,7 +296,8 @@ export default class SortableList extends Component {
       const released = releasedRowKey === key;
 
       if (active || released) {
-        style[ZINDEX] = 100;
+        style.zIndex = 100
+        style.elevation = 100
       }
 
       return (
